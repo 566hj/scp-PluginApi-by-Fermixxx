@@ -10,17 +10,23 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout
       uses: actions/checkout@v4
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Build PluginAPI.csproj
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1
+
+    - name: Restore NuGet packages
+      run: nuget restore PluginAPI.csproj
+
+    - name: Build DLL
       run: msbuild PluginAPI.csproj /p:Configuration=Release
 
-    - name: Upload PluginAPI.dll
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: PluginAPI.dll
-        path: bin/Release/PluginAPI.dll
+        path: bin/Release/net48/PluginAPI.dll
