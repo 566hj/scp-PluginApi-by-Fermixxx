@@ -5,11 +5,14 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Подключение DLL с пробелами в названии -->
     <Reference Include="LabAPI">
-      <HintPath>libs/LabAPI.dll</HintPath>
+      <HintPath>libs/LabAPI (2).dll</HintPath>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
 
