@@ -1,6 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>11.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="LabAPI">
+      <HintPath>libs\LabAPI (2).dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <None Include="libs\LabAPI (2).dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project> Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
 -    <TargetFramework>net48</TargetFramework>
 +    <TargetFramework>net6.0</TargetFramework>
 -    <LangVersion>11.0</LangVersion>
