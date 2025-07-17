@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>PluginAPI</AssemblyName>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.15.3" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="PluginEvents.cs" />
+    <Compile Include="EventHandlerAttribute.cs" />
+    <Compile Include="PluginLoader.cs" />
+    <Compile Include="FrameworkPlugin.cs" />
+  </ItemGroup>
+
+  <Target Name="ILRepackMerge" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <ItemGroup>
+      <InputAssemblies Include="$(OutputPath)\*.dll" />
+    </ItemGroup>
+    <ILRepack
+      Parallel="true"
+      Internalize="true"
+      InputAssemblies="@(InputAssemblies)"
+      TargetKind="SameAsPrimaryAssembly"
+      OutputFile="$(OutputPath)\PluginAPI.dll"
+      DebugInfo="true" />
+  </Target>
+</Project>
