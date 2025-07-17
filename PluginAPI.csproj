@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net461</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ilrepack.lib.msbuild.task" Version="2.0.18" />
+  </ItemGroup>
+
+  <Target Name="ILRepack" AfterTargets="Build">
+    <ItemGroup>
+      <InputAssemblies Include="$(OutputPath)PluginAPI.dll" />
+    </ItemGroup>
+    <Message Text="Merging all DLLs into PluginAPI.dll..." />
+    <ILRepack
+        OutputFile="$(OutputPath)PluginAPI.Merged.dll"
+        InputAssemblies="@(InputAssemblies)"
+        Internalize="true"
+        DebugInfo="true"
+        Parallel="true"
+        TargetKind="Library" />
+  </Target>
+
+</Project>
