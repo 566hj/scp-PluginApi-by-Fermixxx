@@ -1,0 +1,26 @@
+name: Build PluginAPI
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build PluginAPI.csproj
+      run: msbuild PluginAPI.csproj /p:Configuration=Release
+
+    - name: Upload PluginAPI.dll
+      uses: actions/upload-artifact@v4
+      with:
+        name: PluginAPI.dll
+        path: bin/Release/PluginAPI.dll
