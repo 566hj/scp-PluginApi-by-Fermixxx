@@ -1,9 +1,6 @@
 name: Build PluginAPI
 
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+on: [push, pull_request]
 
 jobs:
   build:
@@ -13,20 +10,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '6.0.x'
 
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1
+    - name: Restore
+      run: dotnet restore
 
-    - name: Restore NuGet packages
-      run: nuget restore PluginAPI.csproj
+    - name: Build
+      run: dotnet build --configuration Release
 
-    - name: Build DLL
-      run: msbuild PluginAPI.csproj /p:Configuration=Release
-
-    - name: Upload Artifact
+    - name: Upload DLL
       uses: actions/upload-artifact@v4
       with:
-        name: PluginAPI.dll
-        path: bin/Release/net48/PluginAPI.dll
+        name: PluginAPI
+        path: bin/Release/net6.0/PluginAPI.dll
