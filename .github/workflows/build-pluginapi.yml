@@ -25,7 +25,7 @@ jobs:
         run: dotnet build PluginAPI/PluginAPI.csproj -c Release
 
       - name: Upload built DLL
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PluginAPI.dll
           path: PluginAPI/bin/Release/net461/PluginAPI.dll
