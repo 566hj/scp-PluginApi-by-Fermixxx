@@ -1,28 +1,31 @@
 name: Build PluginAPI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '6.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
 
-    - name: Restore
-      run: dotnet restore
+      - name: Restore
+        run: dotnet restore
 
-    - name: Build
-      run: dotnet build --configuration Release
+      - name: Build
+        run: dotnet build --configuration Release
 
-    - name: Upload DLL
-      uses: actions/upload-artifact@v4
-      with:
-        name: PluginAPI
-        path: bin/Release/net6.0/PluginAPI.dll
+      - name: Upload DLL
+        uses: actions/upload-artifact@v4
+        with:
+          name: PluginAPI
+          path: bin/Release/net6.0/PluginAPI.dll
